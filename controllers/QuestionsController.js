@@ -11,13 +11,16 @@ router.get("/ask", (req, res) => {
 router.post("/savequestion", (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
-
-    Question.create({
-        title: title,
-        description: description
-    }).then(() => {
+    if(title !== '' && description !== ''){
+        Question.create({
+            title: title,
+            description: description
+        }).then(() => {
+            res.redirect("/");
+        });
+    }else{
         res.redirect("/");
-    });
+    }
 });
 
 router.get("/question/:id", (req, res) => {
